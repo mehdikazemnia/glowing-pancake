@@ -11,18 +11,16 @@ export class AuthController {
   //
 
   @Post('login')
-  async login(@Body() loginUserData: LoginUserDto): Promise<any> {
-    const res = await this.authService.login(loginUserData);
-    return res;
+  async login(@Body() loginUserData: LoginUserDto) {
+    const token = await this.authService.login(loginUserData);
+    return { token };
   }
 
   //
 
   @Post('register')
-  public async register(
-    @Body() registerUserData: RegisterUserDto,
-  ): Promise<User> {
-    const res = await this.authService.register(registerUserData);
-    return res;
+  public async register(@Body() registerUserData: RegisterUserDto) {
+    const token = await this.authService.register(registerUserData);
+    return { token };
   }
 }
