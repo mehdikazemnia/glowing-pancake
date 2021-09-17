@@ -12,12 +12,6 @@ export class RegisterUserDto {
   readonly email: string;
 
   @ApiProperty({
-    required: true,
-    example: 'johndoe',
-  })
-  readonly username: string;
-
-  @ApiProperty({
     description: 'The password of the User.',
     default: '123456',
     type: 'string',
