@@ -5,14 +5,14 @@ import {
 } from '@nestjs/common';
 import { Request } from 'express';
 import { sign } from 'jsonwebtoken';
+import * as bcrypt from 'bcrypt';
+//
 import { UserService } from '../user/user.service';
 import { RegisterUserDto, LoginUserDto } from '../user/dto';
-import * as bcrypt from 'bcrypt';
 import mainConfig from '../../lib/main.config';
 
 @Injectable()
 export class AuthService {
-  // private readonly logger = new LoggerService('AuthService');
   constructor(private readonly userService: UserService) {}
 
   public jwtExtractor(request: Request) {
@@ -30,18 +30,18 @@ export class AuthService {
   }
 
   async register(registerUserData: RegisterUserDto): Promise<any> {
-    const existingUser = await this.userService.findByEmail(
-      registerUserData.email,
+    const existingUser = await this.userService.findByUsername(
+      registerUserData.username,
     );
     if (existingUser) throw new BadRequestException('Duplicate credentials.');
 
     const salt = await bcrypt.genSalt(3);
     const password = await bcrypt.hash(registerUserData.password, salt);
-    const { email } = registerUserData;
+    const { username } = registerUserData;
     const newUser = await this.userService.createUser({
       password,
       salt,
-      email,
+      username,
     });
     const userId = String(newUser._id);
 
@@ -61,8 +61,8 @@ export class AuthService {
   }
 
   private async validateUserPassword(loginUserData: LoginUserDto) {
-    const { email, password } = loginUserData;
-    const user = await this.userService.findByEmail(email);
+    const { username, password } = loginUserData;
+    const user = await this.userService.findByUsername(username);
     if (user) {
       const hash = await bcrypt.hash(password, user.salt);
       const passwordIsValid = hash === user.password;

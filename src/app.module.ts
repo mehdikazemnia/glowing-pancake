@@ -1,10 +1,12 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+//
 import mainConfig from './lib/main.config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './modules/auth/auth.module';
 import { UserModule } from './modules/user/user.module';
+import { IprModule } from './modules/ipr/ipr.module';
 
 @Module({
   imports: [
@@ -22,6 +24,7 @@ import { UserModule } from './modules/user/user.module';
     }),
     UserModule,
     AuthModule,
+    IprModule,
   ],
   controllers: [AppController],
   providers: [AppService],

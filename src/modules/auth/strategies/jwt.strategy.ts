@@ -21,7 +21,7 @@ export class UserJwtStrategy extends PassportStrategy(Strategy, 'userJwt') {
     if (user) {
       return {
         userId,
-        email: user.email,
+        username: user.username,
       };
     } else {
       return null;

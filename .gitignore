@@ -2,6 +2,9 @@
 /dist
 /node_modules
 
+# Media
+media/**/*
+
 # Docker Volumes
 vol
 
