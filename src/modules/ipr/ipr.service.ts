@@ -1,14 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Express } from 'express';
 import md5File from 'md5-file';
 import { Model } from 'mongoose';
-import path from 'path';
-import fs from 'fs';
 //
 import fakeApiThird from 'src/lib/fake-api.third';
 import { UserService } from '../user/user.service';
-import { CreateIprDto, UpdateIprDto } from './dto/';
+import { CreateIprDto } from './dto/';
 import { IPRStatusEnumObj, IPRStatusEnum } from './ipr.enum';
 import { IPR } from './ipr.schema';
 import * as pusherUtil from 'src/lib/pusher.util';
@@ -96,11 +93,5 @@ export class IprService {
     const ipr = await this.IPRModel.findOne({ id });
     if (!ipr || ipr.user !== user.id) return null; // TODO: Throw 404
     return ipr;
-  }
-
-  //
-
-  update(id: number, updateIprDto: UpdateIprDto) {
-    return `This action updates a #${id} ipr`;
   }
 }

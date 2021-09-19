@@ -11,8 +11,12 @@ const pusher = new Pusher({
 });
 
 export const push = async (event, message) => {
-  await pusher.trigger('notify-channel', event, {
-    message,
-  });
+  try {
+    await pusher.trigger('notify-channel', event, {
+      message,
+    });
+  } catch (err) {
+    console.error(err);
+  }
   return true;
 };

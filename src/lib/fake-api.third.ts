@@ -8,6 +8,6 @@ export default function (inputPath: string): Promise<string> {
         if (err) reject(err);
         else resolve(outputPath);
       });
-    }, 1000 * 60 /* 60 seconds */);
+    }, 1000 * 6 /* 60 seconds */);
   });
 }
