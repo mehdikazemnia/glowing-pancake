@@ -9,9 +9,10 @@ import {
   UseInterceptors,
   UploadedFile,
 } from '@nestjs/common';
+//
 import { IprService } from './ipr.service';
 import { CreateIprDto } from './dto/';
-import { UserJwtAuthGuard } from '../auth/guards/user.jwt-auth.guard';
+import { UserJwtAuthGuard } from '../auth/user.jwt-auth.guard';
 import { ApiBearerAuth, ApiConsumes, ApiTags } from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Express } from 'express';
