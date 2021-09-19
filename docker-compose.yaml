@@ -1,15 +1,6 @@
 version: "3.8"
 # Services
 services:
-    redis:
-        image: "redis:alpine"
-        command: redis-server
-        volumes:
-            - ./vol/redis:/var/lib/redis
-        ports:
-            - 6379:6379
-        networks:
-            - pancake-net
     mongo:
         image: mongo:latest
         environment:

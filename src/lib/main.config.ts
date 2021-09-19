@@ -24,10 +24,4 @@ export default {
     secret: process.env.JWT_SECRET,
     expiration: process.env.JWT_EXPIRATION,
   },
-  redis: {
-    host: process.env.REDIS_HOST,
-    port: process.env.REDIS_PORT,
-    expire: process.env.REDIS_EXPIRE,
-    password: process.env.REDIS_PASSWORD,
-  },
 };
