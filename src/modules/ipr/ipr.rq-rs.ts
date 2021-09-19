@@ -1,7 +1,9 @@
-import { IsNotEmpty, IsLatLong, IsDateString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { IsNotEmpty, IsDateString, IsLatLong } from 'class-validator';
+//
+import { ReadIprDto } from './dto';
 
-export class CreateIprDto {
+export class createRQ {
   @ApiProperty({
     type: 'string',
     format: 'date-time',
@@ -26,3 +28,7 @@ export class CreateIprDto {
   })
   readonly file: string;
 }
+
+export class createRS extends ReadIprDto {}
+
+export class readRS extends ReadIprDto {}

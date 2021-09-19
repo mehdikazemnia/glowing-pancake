@@ -4,7 +4,6 @@ import { Model } from 'mongoose';
 //
 import { User } from './user.schema';
 import { IUserCreate } from './user.interface';
-import { IPRStatusEnumObj } from '../ipr/ipr.enum';
 
 @Injectable()
 export class UserService {

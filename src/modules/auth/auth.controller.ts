@@ -1,8 +1,8 @@
-import { Body, Controller, Post } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Post, HttpStatus } from '@nestjs/common';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 //
-import { RegisterUserDto, LoginUserDto } from '../user/dto';
 import { AuthService } from './auth.service';
+import * as authRQRS from './auth.rq-rs';
 @Controller('auth')
 @ApiTags('auth')
 export class AuthController {
@@ -10,17 +10,27 @@ export class AuthController {
 
   //
 
+  @ApiResponse({
+    status: HttpStatus.OK,
+    type: authRQRS.loginRS,
+  })
   @Post('login')
-  async login(@Body() loginUserData: LoginUserDto) {
-    const token = await this.authService.login(loginUserData);
-    return { token };
+  async login(@Body() loginData: authRQRS.loginRQ): Promise<authRQRS.loginRS> {
+    const result = await this.authService.login(loginData);
+    return result;
   }
 
   //
 
+  @ApiResponse({
+    status: HttpStatus.OK,
+    type: authRQRS.registerRS,
+  })
   @Post('register')
-  public async register(@Body() registerUserData: RegisterUserDto) {
-    const token = await this.authService.register(registerUserData);
-    return { token };
+  public async register(
+    @Body() registerData: authRQRS.registerRQ,
+  ): Promise<authRQRS.registerRS> {
+    const result = await this.authService.register(registerData);
+    return result;
   }
 }

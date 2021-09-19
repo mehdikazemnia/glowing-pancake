@@ -1,1 +1,1 @@
-export { CreateIprDto } from './create-ipr.dto';
+export { ReadIprDto } from './read-ipr.dto';

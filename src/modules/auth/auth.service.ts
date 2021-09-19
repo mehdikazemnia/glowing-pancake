@@ -8,8 +8,9 @@ import { sign } from 'jsonwebtoken';
 import * as bcrypt from 'bcrypt';
 //
 import { UserService } from '../user/user.service';
-import { RegisterUserDto, LoginUserDto } from '../user/dto';
 import mainConfig from '../../lib/main.config';
+import { loginRQ, loginRS, registerRQ, registerRS } from './auth.rq-rs';
+import { tokenDto } from './dto/token.dto';
 
 @Injectable()
 export class AuthService {
@@ -19,7 +20,7 @@ export class AuthService {
   /*                         API                        */
   /* -------------------------------------------------- */
 
-  async register(registerUserData: RegisterUserDto): Promise<any> {
+  async register(registerUserData: registerRQ): Promise<registerRS> {
     const existingUser = await this.userService.findByUsername(
       registerUserData.username,
     );
@@ -37,17 +38,17 @@ export class AuthService {
 
     const accessToken = await this.createUserAccessToken(userId);
 
-    return accessToken;
+    return new tokenDto(accessToken);
   }
 
-  async login(loginUserData: LoginUserDto): Promise<any> {
+  async login(loginUserData: loginRQ): Promise<loginRS> {
     const user = await this.validateUserPassword(loginUserData);
     if (!user) throw new UnauthorizedException('Incorrect credentials.');
 
     const userId = String(user.id);
     const accessToken = await this.createUserAccessToken(userId);
 
-    return accessToken;
+    return new tokenDto(accessToken);
   }
 
   /* -------------------------------------------------- */
@@ -68,7 +69,7 @@ export class AuthService {
     return token;
   }
 
-  private async validateUserPassword(loginUserData: LoginUserDto) {
+  private async validateUserPassword(loginUserData: loginRQ) {
     const { username, password } = loginUserData;
     const user = await this.userService.findByUsername(username);
     if (user) {
