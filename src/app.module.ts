@@ -4,8 +4,6 @@ import { ServeStaticModule } from '@nestjs/serve-static/dist/serve-static.module
 import { join } from 'path';
 //
 import mainConfig from './lib/main.config';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { AuthModule } from './modules/auth/auth.module';
 import { UserModule } from './modules/user/user.module';
 import { IprModule } from './modules/ipr/ipr.module';
@@ -34,7 +32,5 @@ import { IprModule } from './modules/ipr/ipr.module';
     AuthModule,
     IprModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}

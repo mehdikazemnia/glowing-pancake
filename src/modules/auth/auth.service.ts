@@ -15,19 +15,9 @@ import mainConfig from '../../lib/main.config';
 export class AuthService {
   constructor(private readonly userService: UserService) {}
 
-  public jwtExtractor(request: Request) {
-    let token = null;
-    if (request.headers.authorization) {
-      token = request.headers.authorization
-        .replace('Bearer', '')
-        .replace(/\s/g, '');
-    }
-    if (token) {
-    } else {
-      throw new BadRequestException('No token Provided.');
-    }
-    return token;
-  }
+  /* -------------------------------------------------- */
+  /*                         API                        */
+  /* -------------------------------------------------- */
 
   async register(registerUserData: RegisterUserDto): Promise<any> {
     const existingUser = await this.userService.findByUsername(
@@ -58,6 +48,24 @@ export class AuthService {
     const accessToken = await this.createUserAccessToken(userId);
 
     return accessToken;
+  }
+
+  /* -------------------------------------------------- */
+  /*                        FUNCS                       */
+  /* -------------------------------------------------- */
+
+  public jwtExtractor(request: Request) {
+    let token = null;
+    if (request.headers.authorization) {
+      token = request.headers.authorization
+        .replace('Bearer', '')
+        .replace(/\s/g, '');
+    }
+    if (token) {
+    } else {
+      throw new BadRequestException('No token Provided.');
+    }
+    return token;
   }
 
   private async validateUserPassword(loginUserData: LoginUserDto) {

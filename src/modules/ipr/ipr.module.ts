@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
+import { MulterModule } from '@nestjs/platform-express';
+import { MongooseModule } from '@nestjs/mongoose';
 //
 import { IprService } from './ipr.service';
 import { IprController } from './ipr.controller';
-import { MulterModule } from '@nestjs/platform-express';
 import { UserService } from '../user/user.service';
-import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from '../user/user.schema';
 import { IPRSchema, IPR } from './ipr.schema';
 @Module({

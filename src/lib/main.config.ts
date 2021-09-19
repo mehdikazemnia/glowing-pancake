@@ -5,14 +5,6 @@ dotenv.config();
 export default {
   host: process.env.HOST,
   port: process.env.PORT,
-  socket: {
-    appId: process.env.SOCKET_APPID,
-    key: process.env.SOCKET_KEY,
-    secret: process.env.SOCKET_SECRET,
-    host: process.env.SOCKET_HOST,
-    port: process.env.SOCKET_PORT,
-    masterKey: process.env.SOCKET_ENCRYPTION_MASTER_KEY,
-  },
   mongo: {
     port: process.env.MONGO_PORT,
     host: process.env.MONGO_HOST,

@@ -3,11 +3,7 @@ import * as mongoose from 'mongoose';
 import { Type } from 'class-transformer';
 //
 import { Base } from '../../lib/base.entity';
-import {
-  IPRStatusEnumObj,
-  IPRStatusEnumValues,
-  IPRStatusEnum,
-} from './ipr.enum';
+import { IPRStatusEnumObj, IPRStatusEnumValues } from './ipr.enum';
 import { User } from '../user/user.schema';
 
 export type IPRDocument = IPR & mongoose.Document;
