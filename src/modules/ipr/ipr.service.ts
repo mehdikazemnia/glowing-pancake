@@ -68,6 +68,7 @@ export class IprService {
         { id: IprId },
         { outputPath, status: IPRStatusEnumObj.Success },
       );
+      // pushe a notif on sockets
       await pusherUtil.push(IprId, 'done');
     } catch (err) {
       await this.IPRModel.updateOne(
