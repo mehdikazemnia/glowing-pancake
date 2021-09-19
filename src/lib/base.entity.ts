@@ -11,7 +11,4 @@ export class Base extends mongoose.Document {
 
   @Prop({ required: false, default: () => Date.now() })
   public updatedAt!: Date;
-
-  @Prop({ required: false, default: () => null })
-  public deletedAt?: Date;
 }

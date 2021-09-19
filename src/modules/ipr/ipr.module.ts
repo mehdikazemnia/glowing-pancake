@@ -6,9 +6,11 @@ import { MulterModule } from '@nestjs/platform-express';
 import { UserService } from '../user/user.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from '../user/user.schema';
+import { IPRSchema, IPR } from './ipr.schema';
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
+    MongooseModule.forFeature([{ name: IPR.name, schema: IPRSchema }]),
     MulterModule.register({
       dest: './media/input',
     }),

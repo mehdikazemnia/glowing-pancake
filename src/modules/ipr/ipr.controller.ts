@@ -20,9 +20,10 @@ import { Express } from 'express';
 @ApiBearerAuth('JWT-auth')
 @UseGuards(UserJwtAuthGuard)
 @ApiTags('Image Processing Request')
-// @UseGuards(UserJwtAuthGuard)
 export class IprController {
   constructor(private readonly iprService: IprService) {}
+
+  //
 
   @Post('/')
   @ApiConsumes('multipart/form-data')
@@ -35,6 +36,8 @@ export class IprController {
     const user = request.user;
     return this.iprService.create(user, file, createIprData);
   }
+
+  //
 
   @Get(':id')
   findOne(@Req() request, @Param('id') id: string) {

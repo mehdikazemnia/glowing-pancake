@@ -43,7 +43,7 @@ export class AuthService {
       salt,
       username,
     });
-    const userId = String(newUser._id);
+    const userId = String(newUser.id);
 
     const accessToken = await this.createUserAccessToken(userId);
 
@@ -54,7 +54,7 @@ export class AuthService {
     const user = await this.validateUserPassword(loginUserData);
     if (!user) throw new UnauthorizedException('Incorrect credentials.');
 
-    const userId = String(user._id);
+    const userId = String(user.id);
     const accessToken = await this.createUserAccessToken(userId);
 
     return accessToken;

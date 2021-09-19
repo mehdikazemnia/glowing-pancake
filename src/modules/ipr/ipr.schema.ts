@@ -8,7 +8,7 @@ import {
   IPRStatusEnumValues,
   IPRStatusEnum,
 } from './ipr.enum';
-import { User, UserSchema } from '../user/user.schema';
+import { User } from '../user/user.schema';
 
 export type IPRDocument = IPR & mongoose.Document;
 
@@ -24,11 +24,17 @@ export class IPR extends Base {
   public outputPath: string;
 
   @Prop({ enum: IPRStatusEnumValues, default: IPRStatusEnumObj.Pending })
-  public status: IPRStatusEnum;
+  public status: string;
 
-  @Prop({ type: mongoose.Types.ObjectId, ref: User.name })
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: User.name })
   @Type(() => User)
-  address: User;
+  public user: User;
+
+  @Prop({ required: true })
+  public date: Date;
+
+  @Prop({ required: true })
+  public location: string;
 }
 
 export const IPRSchema = SchemaFactory.createForClass(IPR);

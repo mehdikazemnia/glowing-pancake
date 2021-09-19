@@ -27,13 +27,4 @@ export class UserService {
     const user = await this.userModel.create(createUser);
     return user;
   }
-
-  public async hasPendingRequest(userId: string): Promise<boolean> {
-    const pendingIpr = await this.userModel
-      .findById(userId)
-      .populate('ipr')
-      .where({ status: IPRStatusEnumObj.Pending });
-    console.log(pendingIpr);
-    return !!pendingIpr;
-  }
 }
