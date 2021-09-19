@@ -3,6 +3,8 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Express } from 'express';
 import * as md5File from 'md5-file';
 import { Model } from 'mongoose';
+import * as path from 'path';
+import * as fs from 'fs';
 //
 import fakeApiThird from 'src/lib/fake-api.third';
 import { UserService } from '../user/user.service';
@@ -90,9 +92,10 @@ export class IprService {
 
   //
 
-  findOne(user, id: number) {
-    console.log(user, id);
-    return `This action returns a #${id} ipr`;
+  public async findOne(user, id: string): Promise<any> {
+    const ipr = await this.IPRModel.findOne({ id });
+    if (!ipr || ipr.user !== user.id) return null; // TODO: Throw 404
+    return ipr;
   }
 
   //
