@@ -1,5 +1,5 @@
 import { Prop, Schema } from '@nestjs/mongoose';
-import * as mongoose from 'mongoose';
+import mongoose from 'mongoose';
 
 @Schema()
 export class Base extends mongoose.Document {

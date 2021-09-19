@@ -1,16 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Express } from 'express';
-import * as md5File from 'md5-file';
+import md5File from 'md5-file';
 import { Model } from 'mongoose';
-import * as path from 'path';
-import * as fs from 'fs';
+import path from 'path';
+import fs from 'fs';
 //
 import fakeApiThird from 'src/lib/fake-api.third';
 import { UserService } from '../user/user.service';
 import { CreateIprDto, UpdateIprDto } from './dto/';
 import { IPRStatusEnumObj, IPRStatusEnum } from './ipr.enum';
 import { IPR } from './ipr.schema';
+import * as pusherUtil from 'src/lib/pusher.util';
 
 @Injectable()
 export class IprService {
@@ -26,7 +27,7 @@ export class IprService {
     // check if user doesn't have another file on queue already
     const hasPendingRequest = await this.hasPendingRequest(user.id);
     console.log('hasPendingRequest', hasPendingRequest);
-    if (hasPendingRequest) return null; // 400 // holdup bitch
+    if (hasPendingRequest) return null; // 400 // holdup
 
     // check if this file has already been given (md5) return from cache
     const md5 = await md5File(file.path);
@@ -63,13 +64,11 @@ export class IprService {
   async handleFakeAPI(inputPath, IprId) {
     try {
       const outputPath = await fakeApiThird(inputPath);
-
       await this.IPRModel.updateOne(
         { id: IprId },
         { outputPath, status: IPRStatusEnumObj.Success },
       );
-
-      // TODO: Emit the socket
+      await pusherUtil.push(IprId, 'done');
     } catch (err) {
       await this.IPRModel.updateOne(
         { id: IprId },
